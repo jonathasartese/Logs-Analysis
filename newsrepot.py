@@ -4,6 +4,7 @@ import psycopg2
 
 DBNAME = "news"
 
+
 def execute_query(query):
 
     conn = psycopg2.connect(dbname=DBNAME)
@@ -14,16 +15,18 @@ def execute_query(query):
     conn.close()
     return results
 
+
 def question1():
     query = "SELECT articles.title, COUNT(*) AS num "\
             "FROM articles "\
             "INNER JOIN log ON log.path like CONCAT('%', articles.slug) "\
-            "GROUP BY articles.title ORDER BY num DESC limit 3;" 
+            "GROUP BY articles.title ORDER BY num DESC limit 3;"
     results =execute_query(query);
     
     print('The most popular articles of all time are:')
     for result in results:
         print("   ", result[0] ," - ", result[1], " views ")
+
 
 def question2():
     query = "SELECT authors.name, COUNT(*) AS num "\
@@ -36,6 +39,7 @@ def question2():
     print('The most popular article authors of all time are')
     for result in results:
         print("   ", result[0] ," - ", result[1], " views ")
+
 
 def question3():
     query = "SELECT * FROM "\
